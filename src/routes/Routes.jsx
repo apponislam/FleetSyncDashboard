@@ -9,6 +9,8 @@ import App from "../App";
 
 import UserDetailsPage from "../pages/Dashboard/UserDetailsPage/UserDetailsPage";
 import UserDetails from "../pages/Dashboard/UserDetailsPage/UserDetails";
+import Connections from "../pages/Dashboard/connections/Connection";
+
 
 
 
@@ -31,6 +33,12 @@ const router = createBrowserRouter([
       {
         path:"/user-details/:id",
         element:<div><UserDetails/></div>
+      },
+      {
+        path:"/connections",
+        element:<div><Connections/></div>
+      },
+      {
       }
  
    

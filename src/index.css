@@ -25,7 +25,7 @@ body{
 .custom-ant-table .ant-table-thead > tr > th {
   background: #00A430 !important;
   color: #fff !important;
-   border-bottom: 6px solid #ffffff !important;
+border-bottom: 6px solid #ffffff !important;
   padding: 20px  !important;
   font-size: 16px;
   font-weight: 600;

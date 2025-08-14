@@ -3,7 +3,7 @@ import { CiSettings } from "react-icons/ci";
 
 import Logo from "../Shared/Logo";
 import DashbordSVG from "../../../public/DashbordSVG";
-import PredictionSVG from "../../../public/PredictionsSVG";
+
 import UserSVG from "../../../public/UserSVG";
 import TicketSVG from "../../../public/TicketSVG";
 import TransactionSVG from "../../../public/TransactionSVG";
@@ -17,13 +17,7 @@ const menuItems = [
       <DashbordSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
     ),
   },
-  {
-    label: "Predictions",
-    path: "/predictions",
-    renderIcon: (isActive) => (
-      <PredictionSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
-    ),
-  },
+  
   {
     label: "User Details",
     path: "/user-details-page",
@@ -32,17 +26,10 @@ const menuItems = [
     ),
   },
   {
-    label: "Ticket Management",
-    path: "/ticket-management",
+    label: "Connections",
+    path: "/connections",
     renderIcon: (isActive) => (
-      <TicketSVG strokeColor={isActive ? "#0B3666" : "#FEFEFE"} />
-    ),
-  },
-  {
-    label: "Transaction",
-    path: "/transaction",
-    renderIcon: (isActive) => (
-      <TransactionSVG strokeColor={isActive ? "#0B3666" : "#FEFEFE"} />
+      <TicketSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
     ),
   },
   {
