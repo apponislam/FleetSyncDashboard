@@ -7,6 +7,9 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 
 import App from "../App";
 
+import UserDetailsPage from "../pages/Dashboard/UserDetailsPage/UserDetailsPage";
+import UserDetails from "../pages/Dashboard/UserDetailsPage/UserDetails";
+
 
 
 const router = createBrowserRouter([
@@ -20,6 +23,15 @@ const router = createBrowserRouter([
         path:"",
         element:<div><Dashboard/></div>
       },
+      {
+        path:"/user-details-page",
+        element:<div><UserDetailsPage/></div>
+
+      },
+      {
+        path:"/user-details/:id",
+        element:<div><UserDetails/></div>
+      }
  
    
     ]

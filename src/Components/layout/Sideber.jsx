@@ -25,8 +25,8 @@ const menuItems = [
     ),
   },
   {
-    label: "User Management",
-    path: "/user-management",
+    label: "User Details",
+    path: "/user-details-page",
     renderIcon: (isActive) => (
       <UserSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
     ),
