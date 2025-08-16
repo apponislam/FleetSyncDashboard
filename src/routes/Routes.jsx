@@ -10,6 +10,7 @@ import App from "../App";
 import UserDetailsPage from "../pages/Dashboard/UserDetailsPage/UserDetailsPage";
 import UserDetails from "../pages/Dashboard/UserDetailsPage/UserDetails";
 import Connections from "../pages/Dashboard/connections/Connection";
+import Subscription from "../pages/Dashboard/subscription/Subscription";
 
 
 
@@ -39,6 +40,9 @@ const router = createBrowserRouter([
         element:<div><Connections/></div>
       },
       {
+        path:"/subscription",
+        element:<div><Subscription/></div>
+
       }
  
    

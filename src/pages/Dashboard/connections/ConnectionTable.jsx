@@ -201,7 +201,7 @@ const columns = [
   columns={columns}
   rowKey="key"
   pagination={{ pageSize: 6, position: ["bottomCenter"] }}
-  rowClassName={() => "custom-row-gap"} // <-- attaches spacing & transparent td styles
+  rowClassName={() => "custom-row-gap"}
   components={{
     body: {
       row: (props) => (
@@ -210,7 +210,7 @@ const columns = [
             <div className="row-card">
               <table style={{ width: "100%" }}>
                 <tbody>
-                  <tr>{props.children}</tr> {/* <-- your real cells go here */}
+                  <tr>{props.children}</tr> 
                 </tbody>
               </table>
             </div>

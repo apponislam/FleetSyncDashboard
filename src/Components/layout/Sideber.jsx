@@ -33,20 +33,20 @@ const menuItems = [
     ),
   },
   {
+    label: "Subscription",
+    path: "/subscription",
+    renderIcon: (isActive) => (
+      <JackpotSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
+    ),
+  },
+    {
     label: "Settings",
     path: "/settings",
     renderIcon: (isActive) => (
       <CiSettings
         size={28}
-        className={`text-${isActive ? "#0B3666" : "#FEFEFE"}`}
+        className={`text-${isActive ? "#FEFEFE" : "#FEFEFE"}`}
       />
-    ),
-  },
-  {
-    label: "Jackpot Tracker",
-    path: "/jackpot-tracker",
-    renderIcon: (isActive) => (
-      <JackpotSVG strokeColor={isActive ? "#0B3666" : "#FEFEFE"} />
     ),
   },
 ];
