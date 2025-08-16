@@ -13,6 +13,13 @@ import Connections from "../pages/Dashboard/connections/Connection";
 import Subscription from "../pages/Dashboard/subscription/Subscription";
 import Verifications from "../pages/Dashboard/verifications/Verifications";
 import Promotional from "../pages/Dashboard/promotional/Promotional";
+import Settings from "../pages/Dashboard/settings/Settings";
+import Profile from "../pages/Dashboard/settings/profile/Profile";
+import ChangePassword from "../pages/Dashboard/settings/changePassword/ChangePassword";
+import { SupportRequest } from "../pages/Dashboard/settings/supportRequest/SupportRequest";
+import { About } from "../pages/Dashboard/settings/About";
+import { PrivatePolicy } from "../pages/Dashboard/settings/PrivatePolicy";
+import Terms from "../pages/Dashboard/settings/Terms";
 
 
 
@@ -54,7 +61,35 @@ const router = createBrowserRouter([
         path:"/promotional",
         element:<div><Promotional/></div>
       },
- 
+      {
+        path:"/settings",
+        element:<div><Settings/></div>
+      },
+      {
+        path:"/settings/profile",
+        element:<div><Profile/></div>
+      },
+      {
+        path:"/settings/change-password",
+        element:<div><ChangePassword/></div>
+      },
+      {
+        path:"/settings/support-request",
+        element:<div><SupportRequest/></div>
+      },
+      {
+        path:"/settings/about",
+        element:<div><About/></div>
+      },
+      {
+        path:"/settings/privacy",
+        element:<div><PrivatePolicy/></div>
+      },
+      {
+        path:"/settings/terms",
+        element:<div><Terms/></div>
+      },
+     
    
     ]
   }
