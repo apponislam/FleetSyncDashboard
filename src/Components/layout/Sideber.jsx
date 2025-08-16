@@ -8,6 +8,7 @@ import UserSVG from "../../../public/UserSVG";
 import TicketSVG from "../../../public/TicketSVG";
 import TransactionSVG from "../../../public/TransactionSVG";
 import JackpotSVG from "../../../public/JackpotSVG";
+import VerificationSVG from "../../../public/VerificationSVG";
 
 const menuItems = [
   {
@@ -37,6 +38,20 @@ const menuItems = [
     path: "/subscription",
     renderIcon: (isActive) => (
       <JackpotSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
+    ),
+  },
+  {
+    label: "Verifications",
+    path: "/verifications",
+    renderIcon: (isActive) => (
+      <VerificationSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
+    ),
+  },
+  {
+    label: "Promotional",
+    path: "/promotional",
+    renderIcon: (isActive) => (
+      <VerificationSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
     ),
   },
     {

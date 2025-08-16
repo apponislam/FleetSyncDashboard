@@ -11,6 +11,8 @@ import UserDetailsPage from "../pages/Dashboard/UserDetailsPage/UserDetailsPage"
 import UserDetails from "../pages/Dashboard/UserDetailsPage/UserDetails";
 import Connections from "../pages/Dashboard/connections/Connection";
 import Subscription from "../pages/Dashboard/subscription/Subscription";
+import Verifications from "../pages/Dashboard/verifications/Verifications";
+import Promotional from "../pages/Dashboard/promotional/Promotional";
 
 
 
@@ -43,7 +45,15 @@ const router = createBrowserRouter([
         path:"/subscription",
         element:<div><Subscription/></div>
 
-      }
+      },
+      {
+        path:"/verifications",
+        element:<div><Verifications/></div>
+      },
+      {
+        path:"/promotional",
+        element:<div><Promotional/></div>
+      },
  
    
     ]

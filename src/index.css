@@ -3,7 +3,9 @@
 body{
     font-family: Manrope;
 }
-
+button{
+  cursor: pointer;
+}
 /* Remove direct backgrounds from cells */
 .ant-table-tbody > tr.custom-row-gap > td {
   background: transparent;
