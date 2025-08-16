@@ -3,12 +3,15 @@ import { CiSettings } from "react-icons/ci";
 
 import Logo from "../Shared/Logo";
 import DashbordSVG from "../../../public/DashbordSVG";
-
 import UserSVG from "../../../public/UserSVG";
 import TicketSVG from "../../../public/TicketSVG";
-import TransactionSVG from "../../../public/TransactionSVG";
 import JackpotSVG from "../../../public/JackpotSVG";
 import VerificationSVG from "../../../public/VerificationSVG";
+
+import PromoSVG from "../../../public/PrmoSVG";
+import Promo2SVG from "../../../public/Prmo2SVG";
+
+
 
 const menuItems = [
   {
@@ -51,7 +54,14 @@ const menuItems = [
     label: "Promotional",
     path: "/promotional",
     renderIcon: (isActive) => (
-      <VerificationSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
+      <PromoSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
+    ),
+  },
+  {
+    label: "Promotin",
+    path: "/promotion",
+    renderIcon: (isActive) => (
+      <Promo2SVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />
     ),
   },
     {

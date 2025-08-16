@@ -167,31 +167,15 @@ const UserManagementTable = () => {
           },
         }}
       >
-       <Table
-         className="custom-ant-table"
-  dataSource={userData}
-  columns={columns}
-  rowKey="key"
-  pagination={{ pageSize: 6, position: ["bottomCenter"] }}
-  rowClassName={() => "custom-row-gap"}
-  components={{
-    body: {
-      row: (props) => (
-        <tr {...props}>
-          <td colSpan={columns.length}>
-            <div className="row-card">
-              <table style={{ width: "100%" }}>
-                <tbody>
-                  <tr>{props.children}</tr>
-                </tbody>
-              </table>
-            </div>
-          </td>
-        </tr>
-      ),
-    },
-  }}
-/>
+
+         <Table
+          className="rounded-xl overflow-hidden shadow-md"
+          dataSource={userData}
+          columns={columns}
+          rowKey="key"
+          pagination={{ pageSize: 8, position: ["bottomCenter"] }}
+        />
+   
 
       </ConfigProvider>
     </div>

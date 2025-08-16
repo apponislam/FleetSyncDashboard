@@ -20,6 +20,7 @@ import { SupportRequest } from "../pages/Dashboard/settings/supportRequest/Suppo
 import { About } from "../pages/Dashboard/settings/About";
 import { PrivatePolicy } from "../pages/Dashboard/settings/PrivatePolicy";
 import Terms from "../pages/Dashboard/settings/Terms";
+import Promotion from "../pages/Dashboard/promotion/Promotion";
 
 
 
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path:"/promotional",
         element:<div><Promotional/></div>
+      },
+      {
+        path:"/promotion",
+        element:<div><Promotion/></div>
       },
       {
         path:"/settings",
