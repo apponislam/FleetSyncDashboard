@@ -5,7 +5,7 @@ import { useGetGeneralStatsQuery } from "../../../redux/api/generalStatsApi";
 const Card = () => {
 
      const { data, error, isLoading } = useGetGeneralStatsQuery();
-      if (isLoading) return <p>Loading...</p>;
+      if (isLoading) return <p className="">Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
     console.log(data, "data from general stats");
     console.log(error, "error from general stats");
