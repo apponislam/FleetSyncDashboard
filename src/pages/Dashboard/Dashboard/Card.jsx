@@ -11,7 +11,7 @@ const Card = () => {
     console.log(error, "error from general stats");
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 pt-10">
-            {/* user */}
+          
 
             <div className="rounded-[20px] shadow-lg shadow-gray-500 w-full  flex flex-col items-center bg-[#00A430]
                  py-7 px-2 text-[#FFFFFF]">
