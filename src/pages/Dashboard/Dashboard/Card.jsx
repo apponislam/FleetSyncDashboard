@@ -1,6 +1,14 @@
-import sales from '/sales.svg';
+import { useGetGeneralStatsQuery } from "../../../redux/api/generalStatsApi";
+
+
 
 const Card = () => {
+
+     const { data, error, isLoading } = useGetGeneralStatsQuery();
+      if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+    console.log(data, "data from general stats");
+    console.log(error, "error from general stats");
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 pt-10">
             {/* user */}
@@ -13,7 +21,7 @@ const Card = () => {
                 <div className="font-medium text-[32px] ">Total User</div>
 
                 <div className="flex text-[40px] font-bold items-center justify-between mt-4">
-                    150
+                    {data?.totalUser}
 
 
                 </div>
@@ -31,7 +39,8 @@ const Card = () => {
                 <div className="font-medium text-[32px] ">Total Role</div>
 
                 <div className="flex text-[40px] font-bold items-center justify-between mt-4">
-                    5
+                    {data?.activeRole?.length
+}
 
 
                 </div>
@@ -46,7 +55,7 @@ const Card = () => {
                 <div className="font-medium text-[32px] ">Total Reveneu</div>
 
                 <div className="flex text-[40px] font-bold items-center justify-between mt-4">
-                    500 $
+                    {data?.totalRevenue}
 
 
                 </div>
@@ -61,7 +70,7 @@ const Card = () => {
                 <div className="font-medium text-[32px] ">Total Connection</div>
 
                 <div className="flex text-[40px] font-bold items-center justify-between mt-4">
-                    100
+                    {data?.totalConnection}
 
 
                 </div>
