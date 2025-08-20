@@ -9,7 +9,7 @@ export const generalStatsApi = api.injectEndpoints({
         method: "GET",
       }),
       transformResponse: (response) => response.data, 
-      // now you'll directly get data.totalUser instead of data.data.totalUser
+    
     }),
   }),
 });

@@ -1,147 +1,89 @@
 import { Table, Space, ConfigProvider } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
-import { IoMdEye } from "react-icons/io";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
-
-const userData = [
-  {
-    key: "1",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Ban",
-  },
- 
-  {
-    key: "1",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Ban",
-  },
- 
-  {
-    key: "1",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Ban",
-  },
- 
-  {
-    key: "1",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "John Doe",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Ban",
-  },
- 
-];
-
-const statusColor = {
-  Ban: "bg-[#EE443F]",
-  Active: "bg-[#00A430]",
-};
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text) => (
-      <div className="flex items-center gap-3 ">
-        <img
-          src="https://i.pravatar.cc/40"
-          alt="avatar"
-          className="w-12 h-12 rounded-full"
-        />
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "Phone",
-    dataIndex: "phone",
-    key: "phone",
-  },
-  {
-    title: "Location",
-    dataIndex: "location",
-    key: "location",
-  },
-  {
-    title: "Role",
-    dataIndex: "role",
-    key: "role",
-  },
-  {
-    title: "Status",
-    key: "status",
-    render: (_, record) => (
-      <span
-        className={`px-4 py-2 w-[120px] flex items-center justify-center rounded-lg text-white font-medium ${statusColor[record.status]}`}
-      >
-        {record.status}
-      </span>
-    ),
-  },
-  {
-    title: "Action",
-    key: "action",
-    render: (record) => (
-      <Space>
-        <Link className="text-[#00A430]" to={`/user-details/${record?.key}`}>
-          <MdOutlineRemoveRedEye className="text-[#00A430] text-2xl cursor-pointer" />
-        </Link>
-      </Space>
-    ),
-  },
-];
+import { useState } from "react";
+import { useGetUsersQuery } from "../../../redux/api/userApi";
 
 const UserManagementTable = () => {
+  const [page, setPage] = useState(1);
+
+  const { data, error, isLoading } = useGetUsersQuery({ page, limit: 10 });
+console.log(data);
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "fullName",
+      key: "fullName",
+      render: (text, record) => (
+        <div className="flex items-center gap-3">
+          <img
+            src={
+              record?.profile
+                ? `https://thou-george-collect-inline.trycloudflare.com${record?.profile}`
+                : "https://i.pravatar.cc/40"
+            }
+            alt="avatar"
+            className="w-12 h-12 rounded-full"
+          />
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      key: "location",
+      render: (location) =>
+        location?.coordinates
+          ? `${location.coordinates[1]}, ${location.coordinates[0]}`
+          : "N/A",
+    },
+    {
+      title: "Role",
+      dataIndex: "role",
+      key: "role",
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <span
+          className={`px-4 py-2 w-[120px] flex items-center justify-center rounded-lg text-white font-medium ${
+            status?.toLowerCase() === "active" ? "bg-[#00A430]" : "bg-[#EE443F]"
+          }`}
+        >
+          {status}
+        </span>
+      ),
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (record) => (
+        <Space>
+          <Link className="text-[#00A430]" to={`/user-details/${record?._id}`}>
+            <MdOutlineRemoveRedEye className="text-[#00A430] text-2xl cursor-pointer" />
+          </Link>
+        </Space>
+      ),
+    },
+  ];
+
   return (
     <div className="p-4">
       <ConfigProvider
         theme={{
           components: {
-                 Table: {
+            Table: {
               headerColor: "#ffffff",
               headerBg: "#00A430",
               headerBorderRadius: 18,
@@ -167,16 +109,20 @@ const UserManagementTable = () => {
           },
         }}
       >
-
-         <Table
+        <Table
           className="rounded-xl overflow-hidden shadow-md"
-          dataSource={userData}
+          dataSource={data?.data || []}
           columns={columns}
-          rowKey="key"
-          pagination={{ pageSize: 8, position: ["bottomCenter"] }}
+          rowKey="_id"
+          pagination={{
+            current: data?.meta?.page,
+            pageSize: data?.meta?.limit,
+            total: data?.meta?.total,
+            showSizeChanger: false,  
+            onChange: (newPage) => setPage(newPage),
+            position: ["bottomCenter"],
+          }}
         />
-   
-
       </ConfigProvider>
     </div>
   );
