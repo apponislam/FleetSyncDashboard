@@ -122,14 +122,11 @@ export default function QuotesChart() {
     console.log(filters);
 
     const { data: revenueData, error: revenueError, isLoading: revenueLoading } = useGetRevenueQuery(filters);
-    console.log(revenueLoading);
-    console.log(revenueError);
 
     const chartData = React.useMemo(() => {
         if (!revenueData) return [];
 
         if (revenueData.type === "monthly-daily-breakdown") {
-            // For monthly data with dayData
             return revenueData.dayData.map((day) => ({
                 name: `Day ${day.day}`,
                 uv: day.totalRevenue,
@@ -147,7 +144,8 @@ export default function QuotesChart() {
         return [];
     }, [revenueData]);
 
-    console.log(chartData);
+    console.log(revenueLoading);
+    console.log(revenueError);
 
     if (isLoading) return <p className="">Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -201,9 +199,14 @@ export default function QuotesChart() {
                                     },
                                 }}
                             >
-                                <Option value={2023}>2023</Option>
-                                <Option value={2024}>2024</Option>
-                                <Option value={2025}>2025</Option>
+                                {Array.from({ length: 10 }, (_, i) => {
+                                    const year = new Date().getFullYear() - 5 + i;
+                                    return (
+                                        <Option key={year} value={year}>
+                                            {year}
+                                        </Option>
+                                    );
+                                })}
                             </Select>
                         </ConfigProvider>
                         <ConfigProvider
@@ -263,7 +266,7 @@ export default function QuotesChart() {
                             </linearGradient>
                         </defs>
 
-                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
+                        <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} strokeWidth={0.68} />
                         <YAxis dataKey="uv" axisLine={false} />
                         <XAxis dataKey="name" axisLine={false} />
                         <Tooltip content={<CustomTooltip />} cursor={{ stroke: "#00A430", strokeWidth: 2, strokeDasharray: "5 5" }} />
