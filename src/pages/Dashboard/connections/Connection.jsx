@@ -29,8 +29,8 @@ const Connections = () => {
     <Menu
       items={menuItems}
       onClick={(info) => {
-        setRole(info.key); // ✅ filter state update
-        setPage(1); // নতুন filter-এ গেলে আবার প্রথম page থেকে শুরু
+        setRole(info.key);
+        setPage(1); 
       }}
     />
   );

@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://thou-george-collect-inline.trycloudflare.com/api/v1',
+    baseUrl: 'https://smilies-log-distributed-fail.trycloudflare.com/api/v1',
     prepareHeaders: (headers) => {
   
       const token =
