@@ -3,121 +3,34 @@ import { Table, Space, ConfigProvider } from "antd";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import ConnectionDetailsModal from "../../../Components/modal/ConnectionDetailsModal";
 import { useState } from "react";
+import { useGetConnectionsQuery } from "../../../redux/api/connectionsApi";
 
 
-const userData = [
-  {
-    key: "1",
-    name: "John Doe",
-    connect_with: "Jane Smith",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "Alice Brown",
-    connect_with: "John Doe",
-    phone: "+179874085406",
-    location: "Los Angeles, California",
-    role: "Engineer",
-    status: "Ban",
-  },
-  {
-    key: "1",
-    name: "John Doe",
-    connect_with: "Jane Smith",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "Alice Brown",
-    connect_with: "John Doe",
-    phone: "+179874085406",
-    location: "Los Angeles, California",
-    role: "Engineer",
-    status: "Ban",
-  },
-  {
-    key: "1",
-    name: "John Doe",
-    connect_with: "Jane Smith",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "Alice Brown",
-    connect_with: "John Doe",
-    phone: "+179874085406",
-    location: "Los Angeles, California",
-    role: "Engineer",
-    status: "Ban",
-  },
-  {
-    key: "1",
-    name: "John Doe",
-    connect_with: "Jane Smith",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "Alice Brown",
-    connect_with: "John Doe",
-    phone: "+179874085406",
-    location: "Los Angeles, California",
-    role: "Engineer",
-    status: "Ban",
-  },
-  {
-    key: "1",
-    name: "John Doe",
-    connect_with: "Jane Smith",
-    phone: "+179874085405",
-    location: "Buffalo, New York",
-    role: "Mechanic",
-    status: "Active",
-  },
-  {
-    key: "2",
-    name: "Alice Brown",
-    connect_with: "John Doe",
-    phone: "+179874085406",
-    location: "Los Angeles, California",
-    role: "Engineer",
-    status: "Ban",
-  },
-];
 
 
-const ConnectionTable = () => {
+
+const ConnectionTable = ({data,page,setPage}) => {
         const [isModalOpen, setIsModalOpen] = useState(false);
     
       const handleOpen = () => setIsModalOpen(true);
       const handleClose = () => setIsModalOpen(false)
-      
+
+      console.log(data?.data
+      );
+    
 const columns = [
   {
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text) => (
+    render: (_, record) => (
       <div className="flex items-center gap-3">
         <img
-          src="https://i.pravatar.cc/40"
+          src={record.avatar}
           alt="avatar"
           className="w-12 h-12 rounded-full"
         />
-        <span>{text}</span>
+        <span>{record.name}</span>
       </div>
     ),
   },
@@ -127,22 +40,17 @@ const columns = [
     key: "phone",
   },
   {
-    title: "Location",
-    dataIndex: "location",
-    key: "location",
-  },
-  {
     title: "Connect With",
     dataIndex: "connect_with",
     key: "connect_with",
-    render: (text) => (
+    render: (_, record) => (
       <div className="flex items-center gap-3">
         <img
-          src="https://i.pravatar.cc/40"
+          src={record.connect_avatar}
           alt="avatar"
           className="w-12 h-12 rounded-full"
         />
-        <span>{text}</span>
+        <span>{record.connect_with}</span>
       </div>
     ),
   },
@@ -156,14 +64,14 @@ const columns = [
     key: "action",
     render: (_, record) => (
       <Space>
-        <button
-          onClick={handleOpen} >
+        <button onClick={handleOpen}>
           <MdOutlineRemoveRedEye className="text-[#00A430] text-2xl cursor-pointer" />
         </button>
       </Space>
     ),
   },
 ];
+
   return (
     <div className="p-4">
       <ConfigProvider
@@ -196,13 +104,23 @@ const columns = [
         }}
       >
  
-          <Table
-           className="rounded-xl overflow-hidden shadow-md"
-           dataSource={userData}
-           columns={columns}
-           rowKey="key"
-           pagination={{ pageSize: 8, position: ["bottomCenter"] }}
-         />
+      <Table
+  className="rounded-xl overflow-hidden shadow-md"
+  dataSource={data?.data?.map((item) => ({
+    key: item._id,
+    name: item.user?.[0]?.fullName,
+    phone: item.user?.[0]?.phone,
+    avatar: item.user?.[0]?.profilePic || "https://i.pravatar.cc/40",
+
+    connect_with: item.user?.[1]?.fullName,
+    connect_avatar: item.user?.[1]?.profilePic || "https://i.pravatar.cc/40",
+    role: item.user?.[1]?.role || "N/A",
+  }))}
+  columns={columns}
+  rowKey="key"
+  pagination={{ pageSize: 10, position: ["bottomCenter"] }}
+/>
+
     
 <ConnectionDetailsModal open={isModalOpen} onCancel={handleClose} ></ConnectionDetailsModal>
 

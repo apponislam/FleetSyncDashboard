@@ -6,6 +6,7 @@ const EditableListCompanies = ({ initialItems }) => {
   const [items, setItems] = useState(initialItems);
   const [editingIndex, setEditingIndex] = useState(null);
   const [editValue, setEditValue] = useState("");
+  console.log(items);
 
   const moveItem = (from, to) => {
     if (to < 0 || to >= items.length) return;

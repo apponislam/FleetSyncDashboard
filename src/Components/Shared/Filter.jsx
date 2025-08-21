@@ -5,8 +5,7 @@ const Filter = () => {
     { key: "driver", label: "Driver" },
     { key: "company", label: "Company" },
     { key: "mechanic", label: "Mechanic" },
-    { key: "active", label: "Active" },
-    { key: "ban", label: "Ban" },
+  
   ];
 
   const menu = (

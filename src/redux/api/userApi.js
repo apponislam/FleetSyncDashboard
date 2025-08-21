@@ -9,7 +9,6 @@ export const usersApi = api.injectEndpoints({
         method: "GET",
         params: { page, limit },
       }),
-      // ✅ Keep both meta and data
       transformResponse: (response) => response.data,
     }),
   }),

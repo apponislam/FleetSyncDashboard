@@ -3,7 +3,10 @@ import EditableListTrucks from "./EditableListTrucks";
 
 const Promotion = () => {
   const promotionData = {
-  "companies": ["Company One", "Company Two", "Company Three", "Company Four"],
+  "companies": [{
+    "id": 1,
+    "name": "Company One"
+   }, "Company Two", "Company Three", "Company Four"],
   "trucks": ["Truck One", "Truck Two", "Truck Three", "Truck Four"]
 }
   return (
