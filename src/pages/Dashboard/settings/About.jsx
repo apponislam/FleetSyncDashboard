@@ -1,30 +1,117 @@
-import React from 'react'
-import { FaArrowLeft } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import { useState, useRef, useEffect } from "react";
+import { FaArrowLeft } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import JoditEditor from "jodit-react";
+import { toast } from "sonner";
+import { useGetPublicContentQuery, useUpdatePublicContentMutation } from "../../../redux/features/settings/publicApi";
 
 export const About = () => {
-  return (
-    <div>
+    const [isEditing, setIsEditing] = useState(false);
+    const [content, setContent] = useState("");
 
-               <div className="flex items-center my-10 text-2xl">
-        <Link to={'/settings'} className="text-xl"><FaArrowLeft className="text-[#00A430] mr-2 cursor-pointer" /></Link>
+    // Use the Redux query hook
+    const { data: contentData, isLoading, refetch } = useGetPublicContentQuery("about");
+    const [updatePublicContent, { isLoading: isUpdating }] = useUpdatePublicContentMutation();
 
-        <h2 className="text-[#00A430]  font-semibold">
-            About
-        </h2>
-      </div>
+    console.log(contentData);
 
-        <div className=" bg-white shadow rounded-2xl p-6 md:p-12 text-gray-600 md:text-lg font-medium space-y-8">
-            <div className="self-stretch text-justify justify-start  md:leading-7 tracking-tight">Lorem ipsum dolor sit amet consectetur. Fringilla a cras vitae orci. Egestas duis id nisl sed ante congue scelerisque. Eleifend facilisis aliquet tempus morbi leo sagittis. Pellentesque odio amet turpis habitant. Imperdiet tincidunt nisl consectetur hendrerit accumsan vehicula imperdiet mattis. Neque a vitae diam pharetra duis habitasse convallis luctus pulvinar. Pharetra nunc morbi elementum nisl magnis convallis arcu enim tortor. Cursus a sed tortor enim mi imperdiet massa donec mauris. Sem morbi morbi posuere faucibus. Cras risus ultrices duis pharetra sit porttitor elementum sagittis elementum. Ut vitae blandit pulvinar fermentum in id sed. At pellentesque non semper eget egestas vulputate id volutpat quis. Dolor etiam sodales at elementum mattis nibh quam placerat ut. Suspendisse est adipiscing proin et. Leo nisi bibendum donec ac non eget euismod suscipit. At ultricies nullam ipsum tellus. Non dictum orci at tortor convallis tortor suspendisse. Ac duis senectus arcu nullam in suspendisse vitae. Tellus interdum enim lorem vel morbi lectus.</div>
-            <div className="self-stretch text-justify justify-start   md:leading-7 tracking-tight">Lorem ipsum dolor sit amet consectetur. Fringilla a cras vitae orci. Egestas duis id nisl sed ante congue scelerisque. Eleifend facilisis aliquet tempus morbi leo sagittis. Pellentesque odio amet turpis habitant. Imperdiet tincidunt nisl consectetur hendrerit accumsan vehicula imperdiet mattis. Neque a vitae diam pharetra duis habitasse convallis luctus pulvinar. Pharetra nunc morbi elementum nisl magnis convallis arcu enim tortor. Cursus a sed tortor enim mi imperdiet massa donec mauris. Sem morbi morbi posuere faucibus. Cras risus ultrices duis pharetra sit porttitor elementum sagittis elementum. Ut vitae blandit pulvinar fermentum in id sed. At pellentesque non semper eget egestas vulputate id volutpat quis. Dolor etiam sodales at elementum mattis nibh quam placerat ut. Suspendisse est adipiscing proin et. </div>
+    const editor = useRef(null);
 
-         <div className="flex  items-end ">
-<button className="bg-[#00A430] hover:bg-green-700 text-white px-6 py-2 rounded-xl font-medium">
-            Edit Details
-          </button>
-</div>
+    // Set content when data is loaded
+    useEffect(() => {
+        if (contentData) {
+            setContent(contentData.content || "No content available. Please edit to add content.");
+        }
+    }, [contentData]);
 
+    const handleSave = async () => {
+        try {
+            await updatePublicContent({
+                type: "about",
+                content: content,
+            }).unwrap();
+
+            toast.success("About content updated successfully");
+            setIsEditing(false);
+            refetch(); // Refresh the data
+        } catch (error) {
+            console.error("Failed to save content:", error);
+            toast.error("Failed to save content");
+        }
+    };
+
+    const handleCancel = () => {
+        setIsEditing(false);
+        // Reset to original content
+        if (contentData) {
+            setContent(contentData.content || "");
+        }
+    };
+
+    const config = {
+        readonly: false,
+        placeholder: "Start typing...",
+        buttons: ["bold", "italic", "underline", "link", "unlink", "ul", "ol", "font", "fontsize"],
+        height: 400,
+        theme: "default",
+    };
+
+    if (isLoading) {
+        return (
+            <div>
+                <div className="flex items-center my-10 text-2xl">
+                    <Link to={"/settings"} className="text-xl">
+                        <FaArrowLeft className="text-[#00A430] mr-2 cursor-pointer" />
+                    </Link>
+                    <h2 className="text-[#00A430] font-semibold">About</h2>
+                </div>
+                <div className="bg-white shadow rounded-2xl p-6 md:p-12 text-gray-600 md:text-lg font-medium">
+                    <div className="flex justify-center items-center h-40">
+                        <p>Loading content...</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div>
+            <div className="flex items-center my-10 text-2xl">
+                <Link to={"/settings"} className="text-xl">
+                    <FaArrowLeft className="text-[#00A430] mr-2 cursor-pointer" />
+                </Link>
+                <h2 className="text-[#00A430] font-semibold">About</h2>
+            </div>
+
+            <div className="bg-white shadow rounded-2xl p-6 md:p-12 text-gray-600 md:text-lg font-medium">
+                {isEditing ? (
+                    <>
+                        <div className="space-y-4">
+                            <label className="block font-semibold">About Content:</label>
+                            <JoditEditor ref={editor} value={content} config={config} onBlur={(newContent) => setContent(newContent)} />
+                        </div>
+
+                        <div className="flex gap-4 justify-end mt-6">
+                            <button onClick={handleCancel} className="bg-gray-500 hover:bg-gray-600 text-white px-6 py-2 rounded-xl font-medium">
+                                Cancel
+                            </button>
+                            <button onClick={handleSave} disabled={isUpdating} className="bg-[#00A430] hover:bg-green-700 text-white px-6 py-2 rounded-xl font-medium disabled:bg-gray-400 disabled:cursor-not-allowed">
+                                {isUpdating ? "Saving..." : "Save Changes"}
+                            </button>
+                        </div>
+                    </>
+                ) : (
+                    <>
+                        <div className="self-stretch text-justify justify-start md:leading-7 tracking-tight whitespace-pre-line" dangerouslySetInnerHTML={{ __html: content }} />
+
+                        <div className="flex justify-end mt-6">
+                            <button onClick={() => setIsEditing(true)} className="bg-[#00A430] hover:bg-green-700 text-white px-6 py-2 rounded-xl font-medium">
+                                Edit Details
+                            </button>
+                        </div>
+                    </>
+                )}
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};

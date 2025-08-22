@@ -13,6 +13,8 @@
     "@reduxjs/toolkit": "^2.8.2",
     "@tailwindcss/vite": "^4.1.12",
     "antd": "^5.27.0",
+    "jodit": "^4.6.2",
+    "jodit-react": "^5.2.19",
     "localforage": "^1.10.0",
     "lucide": "^0.539.0",
     "match-sorter": "^8.1.0",
