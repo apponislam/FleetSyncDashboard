@@ -16,6 +16,11 @@ export const usersApi = api.injectEndpoints({
             transformResponse: (response) => response.data,
             providesTags: ["Users"],
         }),
+        getUserById: builder.query({
+            query: (id) => `/user/${id}`,
+            transformResponse: (response) => response.data,
+            providesTags: ["Users"],
+        }),
         updateUserBasicInfo: builder.mutation({
             query: (userData) => ({
                 url: `/user/basic-info`,
@@ -45,4 +50,4 @@ export const usersApi = api.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation } = usersApi;
+export const { useGetUsersQuery, useGetUserByIdQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation } = usersApi;

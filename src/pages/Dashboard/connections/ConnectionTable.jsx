@@ -18,7 +18,7 @@ const ConnectionTable = ({ data }) => {
         setSelectedConnection(null);
     };
 
-    console.log(data?.data);
+    console.log("conenction data", data?.data);
 
     const columns = [
         {
@@ -92,17 +92,34 @@ const ConnectionTable = ({ data }) => {
             >
                 <Table
                     className="rounded-xl overflow-hidden shadow-md"
+                    // dataSource={data?.data?.map((item) => ({
+                    //     key: item._id,
+                    //     name: item.user?.[0]?.fullName,
+                    //     phone: item.user?.[0]?.phone,
+                    //     avatar: item.user?.[0]?.profilePic || "https://i.pravatar.cc/40",
+                    //     address: item.user?.[0]?.address || "No address",
+
+                    //     connect_with: item.user?.[1]?.fullName,
+                    //     connect_avatar: item.user?.[1]?.profilePic || "https://i.pravatar.cc/40",
+                    //     role: item.user?.[1]?.role || "N/A",
+                    //     // Add the full item data for modal
+                    //     modalData: item,
+                    // }))}
                     dataSource={data?.data?.map((item) => ({
                         key: item._id,
                         name: item.user?.[0]?.fullName,
                         phone: item.user?.[0]?.phone,
-                        avatar: item.user?.[0]?.profilePic || "https://i.pravatar.cc/40",
+                        avatar: item.user?.[0]?.profile // Changed from profilePic to profile
+                            ? item.user[0].profile.startsWith("http")
+                                ? item.user[0].profile
+                                : `http://10.10.7.26:5001${item.user[0].profile}`
+                            : "https://i.pravatar.cc/40",
                         address: item.user?.[0]?.address || "No address",
 
                         connect_with: item.user?.[1]?.fullName,
-                        connect_avatar: item.user?.[1]?.profilePic || "https://i.pravatar.cc/40",
+                        connect_avatar: item.user?.[1]?.profile ? (item.user[1].profile.startsWith("http") ? item.user[1].profile : `http://10.10.7.26:5001${item.user[1].profile}`) : "https://i.pravatar.cc/40",
                         role: item.user?.[1]?.role || "N/A",
-                        // Add the full item data for modal
+
                         modalData: item,
                     }))}
                     columns={[

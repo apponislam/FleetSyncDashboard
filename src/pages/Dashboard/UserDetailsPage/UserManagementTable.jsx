@@ -14,8 +14,6 @@ const UserManagementTable = ({ search, filter }) => {
         searchTerm: search,
         role: filter,
     });
-
-    console.log(data);
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
@@ -26,7 +24,14 @@ const UserManagementTable = ({ search, filter }) => {
             key: "fullName",
             render: (text, record) => (
                 <div className="flex items-center gap-3">
-                    <img src={record?.profile ? `https://smilies-log-distributed-fail.trycloudflare.com${record?.profile}` : "https://i.pravatar.cc/40"} alt="avatar" className="w-12 h-12 rounded-full" />
+                    <img
+                        src={record?.profile ? (record.profile.startsWith("http") ? record.profile : `http://10.10.7.26:5001${record.profile}`) : "https://i.pravatar.cc/40"}
+                        alt="avatar"
+                        className="w-12 h-12 rounded-full object-cover"
+                        onError={(e) => {
+                            e.target.src = "https://i.pravatar.cc/40";
+                        }}
+                    />
                     <span>{text}</span>
                 </div>
             ),
@@ -40,17 +45,26 @@ const UserManagementTable = ({ search, filter }) => {
             title: "Location",
             dataIndex: "location",
             key: "location",
-            render: (location) => {
+            render: (location, record) => {
+                // First check if there's an address in the record
+                if (record.address) {
+                    return record.address;
+                }
+
+                // If no address, check for coordinates
                 if (!location?.coordinates) return "N/A";
 
                 const [lng, lat] = location.coordinates;
+
+                // Check if coordinates are (0, 0) - default/unset coordinates
+                if (lat === 0 && lng === 0) return "Location not set";
+
                 const locationKey = `${lat},${lng}`;
 
                 // Check if we already have the location name
                 if (locationNames[locationKey]) {
                     // Shorten the location name
                     const shortenedName = locationNames[locationKey].split(",").slice(0, 3).join(",");
-
                     return <span title={locationNames[locationKey]}>{shortenedName}</span>;
                 }
 
@@ -62,6 +76,7 @@ const UserManagementTable = ({ search, filter }) => {
                 return "Loading...";
             },
         },
+
         {
             title: "Role",
             dataIndex: "role",
