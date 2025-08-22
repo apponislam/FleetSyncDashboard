@@ -16,7 +16,26 @@ export const usersApi = api.injectEndpoints({
             transformResponse: (response) => response.data,
             providesTags: ["Users"],
         }),
+        updateUserBasicInfo: builder.mutation({
+            query: (userData) => ({
+                url: `/user/basic-info`,
+                method: "PATCH",
+                body: userData,
+            }),
+        }),
+        uploadProfileImage: builder.mutation({
+            query: (file) => {
+                const formData = new FormData();
+                formData.append("images", file);
+
+                return {
+                    url: `/user/profile-image`,
+                    method: "PATCH",
+                    body: formData,
+                };
+            },
+        }),
     }),
 });
 
-export const { useGetUsersQuery } = usersApi;
+export const { useGetUsersQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation } = usersApi;

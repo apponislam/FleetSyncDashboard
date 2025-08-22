@@ -12,6 +12,7 @@ const UserSubscriptionTable = () => {
         Paid: "bg-[#00A430]",
         Free: "bg-[#FFD857]",
     };
+
     const userData = [
         {
             key: "1",

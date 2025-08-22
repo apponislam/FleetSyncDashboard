@@ -1,19 +1,23 @@
 import { GoArrowLeft } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 const UserDetails = () => {
+    const navigate = useNavigate();
+
+    const goBack = () => {
+        navigate(-1);
+    };
+
     return (
         <div className="p-4 xl:p-8">
-            {/* Back button + Title */}
             <div className="flex items-center gap-2 mb-6">
-                <span className="text-[#00A430] text-3xl cursor-pointer">
-                    {" "}
+                <span className="text-[#00A430] text-3xl cursor-pointer" onClick={goBack}>
                     <GoArrowLeft />
                 </span>
                 <h1 className="text-[28px] font-medium text-[#000000]">Driver</h1>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                {/* Personal Information */}{" "}
                 <div>
                     <h2 className="text-[#00A430] text-2xl font-medium mb-6">Personal Information</h2>
                     <div className="bg-white rounded-xl flex flex-col items-center p-6 shadow-sm">
@@ -58,7 +62,7 @@ const UserDetails = () => {
                                 },
                             ].map((item, idx) => (
                                 <div key={idx} className="flex text-lg">
-                                    <span className="w-52 text-[#252B42] ">{item.label}</span>
+                                    <span className="w-72 text-[#252B42] ">{item.label}</span>
                                     <span className="flex-1 text-[#737373]">{item.value}</span>
                                 </div>
                             ))}
