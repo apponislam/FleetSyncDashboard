@@ -13,7 +13,7 @@ const Filter = ({ setFilter }) => {
         <Menu
             items={menuItems}
             onClick={(info) => {
-                setFilter(info.key); // Send filter value to parent
+                setFilter(info.key);
             }}
         />
     );
