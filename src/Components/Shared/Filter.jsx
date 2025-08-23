@@ -1,4 +1,4 @@
-import { Dropdown, Menu } from "antd";
+import { Dropdown } from "antd";
 
 const Filter = ({ setFilter }) => {
     const menuItems = [
@@ -9,17 +9,18 @@ const Filter = ({ setFilter }) => {
         { key: "fuel_provider", label: "Fuel Provider" },
     ];
 
-    const menu = (
-        <Menu
-            items={menuItems}
-            onClick={(info) => {
-                setFilter(info.key);
-            }}
-        />
-    );
-
     return (
-        <Dropdown overlay={menu} trigger={["click"]} placement="bottomRight">
+        <Dropdown
+            menu={{
+                items: menuItems,
+                onClick: (info) => {
+                    setFilter(info.key);
+                },
+            }}
+            trigger={["click"]}
+            placement="bottomRight"
+        >
+            {/* 👇 Must be exactly one child element */}
             <div className="bg-[#00A430] px-4 rounded-full cursor-pointer flex justify-center items-center">
                 <img src="/filter.png" className="h-6" alt="filter" />
             </div>

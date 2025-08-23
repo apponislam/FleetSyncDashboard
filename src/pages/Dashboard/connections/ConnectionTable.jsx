@@ -77,9 +77,18 @@ const ConnectionTable = ({ data }) => {
                             cellBorderColor: "#E5E5E5",
                             cellBorderRadius: 8,
                         },
+                        // Pagination: {
+                        //     itemActiveBg: "#00A430",
+                        //     itemActiveColor: "#fff",
+                        //     itemSize: 32,
+                        //     borderRadius: 32,
+                        // },
                         Pagination: {
+                            colorPrimary: "white",
+                            colorPrimaryHover: "white",
                             itemActiveBg: "#00A430",
-                            itemActiveColor: "#fff",
+                            colorTextLightSolid: "#fff",
+                            colorText: "#717179",
                             itemSize: 32,
                             borderRadius: 32,
                         },
@@ -92,19 +101,6 @@ const ConnectionTable = ({ data }) => {
             >
                 <Table
                     className="rounded-xl overflow-hidden shadow-md"
-                    // dataSource={data?.data?.map((item) => ({
-                    //     key: item._id,
-                    //     name: item.user?.[0]?.fullName,
-                    //     phone: item.user?.[0]?.phone,
-                    //     avatar: item.user?.[0]?.profilePic || "https://i.pravatar.cc/40",
-                    //     address: item.user?.[0]?.address || "No address",
-
-                    //     connect_with: item.user?.[1]?.fullName,
-                    //     connect_avatar: item.user?.[1]?.profilePic || "https://i.pravatar.cc/40",
-                    //     role: item.user?.[1]?.role || "N/A",
-                    //     // Add the full item data for modal
-                    //     modalData: item,
-                    // }))}
                     dataSource={data?.data?.map((item) => ({
                         key: item._id,
                         name: item.user?.[0]?.fullName,
@@ -112,12 +108,12 @@ const ConnectionTable = ({ data }) => {
                         avatar: item.user?.[0]?.profile // Changed from profilePic to profile
                             ? item.user[0].profile.startsWith("http")
                                 ? item.user[0].profile
-                                : `http://10.10.7.26:5001${item.user[0].profile}`
+                                : `${import.meta.env.VITE_BASE_URL}${item.user[0].profile}`
                             : "https://i.pravatar.cc/40",
                         address: item.user?.[0]?.address || "No address",
 
                         connect_with: item.user?.[1]?.fullName,
-                        connect_avatar: item.user?.[1]?.profile ? (item.user[1].profile.startsWith("http") ? item.user[1].profile : `http://10.10.7.26:5001${item.user[1].profile}`) : "https://i.pravatar.cc/40",
+                        connect_avatar: item.user?.[1]?.profile ? (item.user[1].profile.startsWith("http") ? item.user[1].profile : `${import.meta.env.VITE_BASE_URL}${item.user[1].profile}`) : "https://i.pravatar.cc/40",
                         role: item.user?.[1]?.role || "N/A",
 
                         modalData: item,

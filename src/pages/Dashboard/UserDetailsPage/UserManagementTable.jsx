@@ -25,7 +25,7 @@ const UserManagementTable = ({ search, filter }) => {
             render: (text, record) => (
                 <div className="flex items-center gap-3">
                     <img
-                        src={record?.profile ? (record.profile.startsWith("http") ? record.profile : `http://10.10.7.26:5001${record.profile}`) : "https://i.pravatar.cc/40"}
+                        src={record?.profile ? (record.profile.startsWith("http") ? record.profile : `${import.meta.env.VITE_BASE_URL}${record.profile}`) : "https://i.pravatar.cc/40"}
                         alt="avatar"
                         className="w-12 h-12 rounded-full object-cover"
                         onError={(e) => {
@@ -120,8 +120,11 @@ const UserManagementTable = ({ search, filter }) => {
                             cellBorderRadius: 8,
                         },
                         Pagination: {
+                            colorPrimary: "white",
+                            colorPrimaryHover: "white",
                             itemActiveBg: "#00A430",
-                            itemActiveColor: "#fff",
+                            colorTextLightSolid: "#fff",
+                            colorText: "#717179",
                             itemSize: 32,
                             borderRadius: 32,
                         },

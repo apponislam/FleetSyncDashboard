@@ -16,6 +16,14 @@ export const usersApi = api.injectEndpoints({
             transformResponse: (response) => response.data,
             providesTags: ["Users"],
         }),
+        getProfile: builder.query({
+            query: () => ({
+                url: `/user/profile`,
+                method: "GET",
+            }),
+            transformResponse: (response) => response.data,
+            providesTags: ["Profile"],
+        }),
         getUserById: builder.query({
             query: (id) => `/user/${id}`,
             transformResponse: (response) => response.data,
@@ -27,6 +35,7 @@ export const usersApi = api.injectEndpoints({
                 method: "PATCH",
                 body: userData,
             }),
+            invalidatesTags: ["Profile"],
         }),
         uploadProfileImage: builder.mutation({
             query: (file) => {
@@ -39,6 +48,7 @@ export const usersApi = api.injectEndpoints({
                     body: formData,
                 };
             },
+            invalidatesTags: ["Profile"],
         }),
         changePassword: builder.mutation({
             query: (passwordData) => ({
@@ -50,4 +60,4 @@ export const usersApi = api.injectEndpoints({
     }),
 });
 
-export const { useGetUsersQuery, useGetUserByIdQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation } = usersApi;
+export const { useGetUsersQuery, useGetProfileQuery, useGetUserByIdQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation } = usersApi;

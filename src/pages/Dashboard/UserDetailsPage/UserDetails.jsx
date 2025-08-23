@@ -157,7 +157,7 @@ const UserDetails = () => {
                     <div className="bg-white rounded-xl flex flex-col items-center p-6 shadow-sm">
                         <div className="flex flex-col items-center mb-6">
                             <img
-                                src={user.profile ? (user.profile.startsWith("http") ? user.profile : `http://10.10.7.26:5001${user.profile}`) : "https://randomuser.me/api/portraits/men/32.jpg"}
+                                src={user.profile ? (user.profile.startsWith("http") ? user.profile : `${import.meta.env.VITE_BASE_URL}${user.profile}`) : "https://randomuser.me/api/portraits/men/32.jpg"}
                                 alt={user.fullName}
                                 className="w-48 h-48 rounded-xl object-cover"
                                 onError={(e) => {

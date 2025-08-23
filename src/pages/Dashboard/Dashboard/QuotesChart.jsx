@@ -279,7 +279,7 @@ export default function QuotesChart() {
                 <h2 className="text-3xl text-[#1F1F1F] font-semibold mb-4">Active Role</h2>
 
                 {mainRoles.map((role, idx) => (
-                    <div key={idx} className="mb-4">
+                    <div key={idx} className="mb-2">
                         {/* Role Title & Percentage */}
                         <div className="flex justify-between items-center mb-1">
                             <span className="text-[#2B2B37] text-xl font-semibold">{role.role}</span>

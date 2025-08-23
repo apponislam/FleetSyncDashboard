@@ -168,8 +168,11 @@ const SupportRequestTable = () => {
                             cellBorderRadius: 8,
                         },
                         Pagination: {
+                            colorPrimary: "white",
+                            colorPrimaryHover: "white",
                             itemActiveBg: "#00A430",
-                            itemActiveColor: "#fff",
+                            colorTextLightSolid: "#fff",
+                            colorText: "#717179",
                             itemSize: 32,
                             borderRadius: 32,
                         },

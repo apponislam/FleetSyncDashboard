@@ -38,16 +38,16 @@ const menuItems = [
         path: "/verifications",
         renderIcon: (isActive) => <VerificationSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
     },
-    {
-        label: "Promotional",
-        path: "/promotional",
-        renderIcon: (isActive) => <PromoSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
-    },
-    {
-        label: "Promotin",
-        path: "/promotion",
-        renderIcon: (isActive) => <Promo2SVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
-    },
+    // {
+    //     label: "Promotional",
+    //     path: "/promotional",
+    //     renderIcon: (isActive) => <PromoSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
+    // },
+    // {
+    //     label: "Promotin",
+    //     path: "/promotion",
+    //     renderIcon: (isActive) => <Promo2SVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
+    // },
     {
         label: "Settings",
         path: "/settings",
