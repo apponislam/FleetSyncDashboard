@@ -18,15 +18,21 @@ import { About } from "../pages/Dashboard/settings/About";
 import { PrivatePolicy } from "../pages/Dashboard/settings/PrivatePolicy";
 import Terms from "../pages/Dashboard/settings/Terms";
 import Promotion from "../pages/Dashboard/promotion/Promotion";
+import Login from "../pages/Dashboard/login/Login";
+import ProtectedRoute from "../pages/Provider/ProtectedRoute";
+import PublicRoute from "../pages/Provider/PublicRoute";
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App></App>,
+        element: (
+            <ProtectedRoute>
+                <App></App>
+            </ProtectedRoute>
+        ),
         errorElement: (
             <div>
-                {" "}
-                <Error />{" "}
+                <Error />
             </div>
         ),
         children: [
@@ -151,6 +157,14 @@ const router = createBrowserRouter([
                 ),
             },
         ],
+    },
+    {
+        path: "/login",
+        element: (
+            <PublicRoute>
+                <Login />
+            </PublicRoute>
+        ),
     },
 ]);
 
