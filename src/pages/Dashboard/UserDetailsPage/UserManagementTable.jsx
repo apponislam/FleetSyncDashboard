@@ -2,8 +2,9 @@ import { Table, Space, ConfigProvider } from "antd";
 import { Link } from "react-router-dom";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { useState } from "react";
-import { useGetUsersQuery } from "../../../redux/api/userApi";
+import { useGetUsersQuery, useRestrictActiveUserMutation } from "../../../redux/api/userApi";
 import getLocationName from "../../../utils/getLocationName";
+import Swal from "sweetalert2";
 
 const UserManagementTable = ({ search, filter }) => {
     const [page, setPage] = useState(1);
@@ -14,6 +15,41 @@ const UserManagementTable = ({ search, filter }) => {
         searchTerm: search,
         role: filter,
     });
+
+    const [restrictUser] = useRestrictActiveUserMutation();
+
+    const userStatusToggle = async (id, currentStatus) => {
+        const isCurrentlyActive = currentStatus?.toLowerCase() === "active";
+        const action = isCurrentlyActive ? "restrict" : "activate";
+
+        const { isConfirmed } = await Swal.fire({
+            title: `Are you sure?`,
+            text: `You are about to ${action} this user (currently ${isCurrentlyActive ? "Active" : "Restricted"}).`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: `Yes, ${action} it!`,
+            cancelButtonText: "Cancel",
+        });
+
+        if (!isConfirmed) return;
+
+        try {
+            const response = await restrictUser(id).unwrap();
+
+            Swal.fire({
+                title: "Success",
+                text: response.data || response.message || `User ${action}ed successfully.`,
+                icon: "success",
+            });
+        } catch (err) {
+            console.error("Error:", err);
+            Swal.fire({
+                title: "Error",
+                text: err.data?.message || "Failed to update user status.",
+                icon: "error",
+            });
+        }
+    };
     if (isLoading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
@@ -86,7 +122,16 @@ const UserManagementTable = ({ search, filter }) => {
             title: "Status",
             dataIndex: "status",
             key: "status",
-            render: (status) => <span className={`px-4 py-2 w-[120px] flex items-center justify-center rounded-lg text-white font-medium ${status?.toLowerCase() === "active" ? "bg-[#00A430]" : "bg-[#EE443F]"}`}>{status}</span>,
+            render: (status, record) => {
+                const isActive = status?.toLowerCase() === "active";
+                const displayStatus = status?.charAt(0).toUpperCase() + status?.slice(1); // Capitalize first letter
+
+                return (
+                    <span onClick={() => userStatusToggle(record._id, status)} className={`px-4 py-2 w-[120px] flex items-center justify-center rounded-lg text-white font-medium ${isActive ? "bg-[#00A430]" : "bg-[#EE443F]"}`} style={{ cursor: "pointer" }}>
+                        {displayStatus}
+                    </span>
+                );
+            },
         },
         {
             title: "Action",

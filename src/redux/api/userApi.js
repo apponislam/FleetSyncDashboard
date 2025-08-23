@@ -57,7 +57,21 @@ export const usersApi = api.injectEndpoints({
                 body: passwordData,
             }),
         }),
+        restrictActiveUser: builder.mutation({
+            query: (id) => ({
+                url: `/dashboard/restrict-activate-user/${id}`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Users"],
+        }),
+        verifyUser: builder.mutation({
+            query: ({ id, action }) => ({
+                url: `/dashboard/manage-user/${id}?action=${action}`,
+                method: "PATCH",
+            }),
+            invalidatesTags: ["Users"],
+        }),
     }),
 });
 
-export const { useGetUsersQuery, useGetProfileQuery, useGetUserByIdQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation } = usersApi;
+export const { useGetUsersQuery, useGetProfileQuery, useGetUserByIdQuery, useUpdateUserBasicInfoMutation, useUploadProfileImageMutation, useChangePasswordMutation, useRestrictActiveUserMutation, useVerifyUserMutation } = usersApi;
