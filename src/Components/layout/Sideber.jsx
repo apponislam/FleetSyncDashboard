@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { CiSettings } from "react-icons/ci";
-
+import { RiLogoutBoxRLine } from "react-icons/ri";
 import Logo from "../Shared/Logo";
 import DashbordSVG from "../../../public/DashbordSVG";
 import UserSVG from "../../../public/UserSVG";
@@ -8,16 +8,12 @@ import TicketSVG from "../../../public/TicketSVG";
 import JackpotSVG from "../../../public/JackpotSVG";
 import VerificationSVG from "../../../public/VerificationSVG";
 
-import PromoSVG from "../../../public/PrmoSVG";
-import Promo2SVG from "../../../public/Prmo2SVG";
-
 const menuItems = [
     {
         label: "Dashboard",
         path: "/",
         renderIcon: (isActive) => <DashbordSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
     },
-
     {
         label: "User Details",
         path: "/user-details-page",
@@ -38,16 +34,6 @@ const menuItems = [
         path: "/verifications",
         renderIcon: (isActive) => <VerificationSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
     },
-    // {
-    //     label: "Promotional",
-    //     path: "/promotional",
-    //     renderIcon: (isActive) => <PromoSVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
-    // },
-    // {
-    //     label: "Promotin",
-    //     path: "/promotion",
-    //     renderIcon: (isActive) => <Promo2SVG strokeColor={isActive ? "#FEFEFE" : "#FEFEFE"} />,
-    // },
     {
         label: "Settings",
         path: "/settings",
@@ -59,15 +45,23 @@ const Sidebar = ({ closeSidebar }) => {
     const location = useLocation();
     const pathname = location.pathname;
 
+    const handleLogout = () => {
+        // Clear tokens from localStorage
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        // Redirect to login page
+        window.location.href = "/login";
+    };
+
     return (
-        <div className="h-full px-3 pt-2" style={{ fontFamily: "Manrope" }}>
+        <div className="h-full px-3 pt-2 flex flex-col" style={{ fontFamily: "Manrope" }}>
             {/* Logo */}
             <div className="flex items-center justify-center pb-6 cursor-pointer">
                 <Logo />
             </div>
 
             {/* Menu Items */}
-            <div style={{ backgroundColor: "#121217", color: "#929292" }}>
+            <div style={{ backgroundColor: "#121217", color: "#929292" }} className="flex-1">
                 {menuItems.map((item) => {
                     const isActive = pathname === item.path;
                     return (
@@ -79,6 +73,14 @@ const Sidebar = ({ closeSidebar }) => {
                         </div>
                     );
                 })}
+            </div>
+
+            {/* Logout Button at Bottom */}
+            <div className="pb-4 pt-2">
+                <button onClick={handleLogout} className="w-full flex items-center gap-4 px-5 py-4 text-[#FEFEFE] text-xl font-semibold hover:bg-red-600 hover:text-white rounded-[20px] transition-colors">
+                    <RiLogoutBoxRLine size={28} />
+                    Logout
+                </button>
             </div>
         </div>
     );

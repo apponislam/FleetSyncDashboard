@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { MdClose } from "react-icons/md";
-import RouteHeader from "./RouteHeader";
 import Logo from "../Shared/Logo";
 import { useGetProfileQuery } from "../../redux/api/userApi";
 
@@ -25,9 +24,7 @@ const HeaderDashboard = ({ toggleSidebar, isSidebarOpen }) => {
         <div className="flex items-center justify-between h-[80px] bg-[#121217] px-4 md:px-14 lg:px-20 pt-2">
             {/* Left section */}
             <>
-                <div className="hidden lg:flex ">
-                    <RouteHeader />
-                </div>
+                <div className="hidden lg:flex ">{/* <RouteHeader /> */}</div>
                 <div className="lg:hidden flex">
                     <Logo sm />
                 </div>

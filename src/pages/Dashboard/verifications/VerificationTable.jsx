@@ -94,6 +94,10 @@ const VerificationTable = ({ search, filter }) => {
                 denyButtonText: "Cancel",
                 confirmButtonColor: "#00A430",
                 cancelButtonColor: "#FF5C35",
+                denyButtonColor: "#6B7280",
+                customClass: {
+                    actions: "swal2-actions-reverse", // Custom class for additional styling if needed
+                },
             });
 
             if (result.isConfirmed) {
