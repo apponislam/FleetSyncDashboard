@@ -11,8 +11,8 @@ const Login = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            email: "super_admin@gmail.com",
-            password: "super@123",
+            email: "",
+            password: "",
         },
     });
     const [adminLogin] = useAdminLoginMutation();
