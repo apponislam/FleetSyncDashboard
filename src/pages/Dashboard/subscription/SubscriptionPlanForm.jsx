@@ -83,7 +83,7 @@ const SubscriptionPlanForm = ({ open, onClose, defaultUserType, refetch, editDat
     const userTypesOptions = [
         { value: "driver", label: "Driver" },
         { value: "mechanic", label: "Mechanic" },
-        // { value: "admin", label: "Admin" },
+        { value: "company", label: "Company" },
         { value: "cook", label: "Cook" },
         { value: "fuel_provider", label: "Fuel Provider" },
     ];

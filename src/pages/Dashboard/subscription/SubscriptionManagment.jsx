@@ -62,7 +62,7 @@ const SubscriptionManagement = () => {
     const roles = [
         { key: "driver", label: "Driver" },
         { key: "mechanic", label: "Mechanic" },
-        // { key: "admin", label: "Admin" },
+        { key: "company", label: "Company" },
         { key: "cook", label: "Cook" },
         { key: "fuel_provider", label: "Fuel Provider" },
     ];
